@@ -1,7 +1,7 @@
 <template>
     <div>
         <Slider></Slider>
-        <Products></Products>
+        <Products :user3="this.user2" :messg="MsgForProduct" @proceedMessage="HomeMessage"></Products>
     </div>
 </template>
 <script>
@@ -15,11 +15,34 @@ export default{
     components:{
         Slider,Products
     },
-    data(){
-        return{
-             perPage:3   
+    props:{
+        user2:{
+            typeof:Object,
+            required:true
+        },
+        MsgForProduct:{
+            typeof:String,
+            required:true
         }
     },
+    data(){
+        return{
+             perPage:3 ,
+             user:'',
+             mess:''
+        }
+    },
+    mounted(){
+       
+    },
+    methods:{
+       HomeMessage(value){
+        this.mess=value
+        this.$emit('FinalMessage',this.mess);
+       },
+       
+       
+    }
     
 }
 </script>

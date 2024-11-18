@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="m-3">
     <section class="footer_section">
         <div class="container">
           <p>
@@ -18,10 +18,10 @@
       <!-- custom js -->
       <script type="application/javascript" src="js/custom.js"></script>
       <!-- Google Map -->
-      <script type="application/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCh39n5U-4IoWpsVGUHWdqB6puEkhRLdmI&callback=myMap">
-      </script>
+      
+
       <!-- jQery -->
-      <script type="application/javascript" src="../modules/phones.js"></script>
+
     </div>
 </template>
 <script>

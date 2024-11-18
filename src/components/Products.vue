@@ -1,13 +1,18 @@
 <template>
     <section class="product_section ">
+      
         <div class="container">
+          <div :class="user3 ? ' font text-success  m-auto d-flex justify-content-center align-items-center' : 'text-danger font '">{{messg}}</div>
           <div class="product_heading">
             <h2>
               Top Sale Watches
             </h2>
           </div>
+          
           <div class="product_container">
-            <div class="box" v-for="cats,index of notDeletedCats" :key="index">
+            
+            <div class="box" v-for="cats,index of cats" :key="index">
+              
               <div class="box-content">
                 <div class="img-box">
                   <img :src=cats.image_link  alt="">
@@ -17,47 +22,55 @@
                     <h6>
                       {{cats.name}}
                     </h6>
-                    <h5>
-                      <span>$</span> 300
-                    </h5>
+                  
                   </div>
-                  <div class="like">
+                  <div class="like" >
                     <h6>
-                      Like
+                      <i class="fa-solid fa-heart-circle-plus" @click="addFavorite(cats.name)"></i>
                     </h6>
-                    <div class="star_container">
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                      <i class="fa fa-star" aria-hidden="true"></i>
-                    </div>
+                    
                   </div>
                 </div>
               </div>
               <div class="btn-box">
-                <a href="">
-                  Add To Cart
+                <a @click="details(cats.name)">
+                  Details <i class="fas fa-paw"></i>
                 </a>
               </div>
+              
             </div>
             
           </div>
         </div>
-        <div class="button"><input type="button" @click="add()"></div>
+       
+        <div class="button dugme  " @click="add()"><p class="m-0">More<i class="fas fa-caret-down"></i></p></div>
       </section>
     
 </template>
 <script>
 
 import { mapGetters } from "vuex";
+
 export default{
     name:"ProductS",
+    
     data(){
             return{
                     limit:false,
                     
+                   
             }
+    },
+    props:{
+      
+      user3:{
+        typeOf:Object,
+        required:true
+      },
+      messg:{
+        typeOf:String,
+        required:true
+      }
     },
     created(){
 
@@ -65,20 +78,19 @@ export default{
         this.getCats();
     },
     computed:{
-        ...mapGetters(['cats','notDeletedCats','getFavouriteCats','addCats'])
+        ...mapGetters(['cats','notDeletedCats','getFavouriteCats','addCats','addFavoriteCat'])
     },
     mounted(){
-        if(!localStorage.getItem("page")){
-            localStorage.setItem('page',13);
+        
+           this.$store.commit('resetPage')
            
-        }
+          this.getCats()
+        console.log(this.messg);
     },
     methods:{
             getCats(){
                 this.$store.commit("apiFetch");
-                console.log(this.$store)
-                console.log(this.cats);
-                console.log(this.notDeletedCats);
+                
                 return this.cats
                 
             },
@@ -94,7 +106,23 @@ export default{
                
                 
                 
-            }
+            },
+            addFavorite(name){
+              if(this.user3){
+                var cat = this.notDeletedCats.filter(x=>x.name==name)[0];
+                this.$store.commit('addFavoriteCat',name);
+                this.$emit('proceedMessage','You successfully added the '+cat.name)
+              }
+             else{
+              
+              this.$emit('proceedMessage','First you have to sign in.')
+             }
+            },
+            
+            details(name){
+                this.$router.push({ name: 'details', params: {name: name}})
+            },
+            
     },
 
 }

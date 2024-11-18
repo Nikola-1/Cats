@@ -23,9 +23,11 @@ import cats from './cats.json'
 
 export default{
     state:{
-        cats: cats,
+        catsPage: cats,
+        catsDrop:cats,
         searchCats:{keyword:null},
         deletedCats:[],
+        notDeletedCats:[],
         favouriteCats:[],
         perPage:localStorage.getItem('page'),
         plus:3,
@@ -40,34 +42,106 @@ export default{
                 }
                 
             }).then(function(response){
-                state.cats = response.data
-                state.total=state.cats.length;
-               console.log(state.cats);
-               console.log(response.data);
+                state.catsPage = response.data
+                state.total=state.catsPage.length;
+                console.log(state.catsPage)
+               
             })
+        },
+        apiFetchAll(state){
+            axios.get(`https://api.api-ninjas.com/v1/cats?grooming=5&offset=1`,
+            {
+                headers:{
+                    "X-Api-Key": "7xjju0jL+F4JgZwkgXqalw==SxsZAt2Vvxrb4NlN"
+                }
+                
+            }).then(function(response){
+                state.catsDrop = response.data
+                console.log(state.catsDrop)
+               
+               
+            })
+            return state.catsDrop
         },
         addCats(state){
          
-        console.log(state);
+            
             state.perPage-=state.plus;
                localStorage.removeItem('page');
             localStorage.setItem('page',state.perPage)
           
-       }
+       },
+       updateCatPage(state, newCat){
+        var Cat = state.catsPage.find(x => x.name == newCat.name)
+        Cat.name = newCat.name
+        Cat.image_link = newCat.image_link
+        Cat.children_friendly = newCat.children_friendly
+        Cat.family_friendly = newCat.family_friendly
+        Cat.general_health = newCat.general_health
+        Cat.grooming = newCat.grooming
+        Cat.intelligence = newCat.intelligence
+        Cat.length = newCat.length
+        Cat.max_life_expectancy = newCat.max_life_expectancy
+        Cat.min_life_expectancy = newCat.min_life_expectancy
+        Cat.max_weight = newCat.max_weight
+        Cat.min_weight = newCat.min_weight
+    },
+    updateCatDrop(state, newCat){
+        var Cat = state.catsDrop.find(x => x.name == newCat.name)
+        Cat.name = newCat.name
+        Cat.image_link = newCat.image_link
+        Cat.children_friendly = newCat.children_friendly
+        Cat.family_friendly = newCat.family_friendly
+        Cat.general_health = newCat.general_health
+        Cat.grooming = newCat.grooming
+        Cat.intelligence = newCat.intelligence
+        Cat.length = newCat.length
+        Cat.max_life_expectancy = newCat.max_life_expectancy
+        Cat.min_life_expectancy = newCat.min_life_expectancy
+        Cat.max_weight = newCat.max_weight
+        Cat.min_weight = newCat.min_weight
+    },
+       addFavoriteCat(state,name){
+       /* var cat=state.cats.filter(x=>x.name==name)[0];
+        console.log(cat);
+        if(state.favouriteCats.filter(x=>x.name==name) ==0){
+            state.favouriteCats.push(cat);
+            
+        }
+       console.log(state);*/
+       state.favouriteCats.push(name);
+         },
+         removeFavorite(state,name){
+            var Favorite = state.favouriteCats.filter(x=>x != name)
+            state.favouriteCats = Favorite;
+         },
+       resetPage(state){
+        
+        
+        localStorage.removeItem('page');
+        localStorage.setItem('page',13);
+        state.perPage=localStorage.getItem('page');
+       },
+      
     },
     getters:{
        cats(state){
         if(state.searchCats.keyword){
-            return state.cats.filter(function(cats){
-                return cats.name.toLowerCase().includes(state.searchCats.keyword.toLowerCase().trim());
+            return state.catsPage.filter(function(catsPage){
+                return catsPage.name.toLowerCase().includes(state.searchCats.keyword.toLowerCase().trim());
             })
         }
-        return state.cats;
+        return state.catsPage;
+       },
+       AllCats(state){
+        return state.catsDrop;
        },
        notDeletedCats(state, getters){
-        return getters.cats.filter(x => !state.deletedCats.includes(x.name))
+        return getters.AllCats.filter(x => !state.deletedCats.includes(x.name))
     },
-    getFavouriteDogs(state, getters){
+    getFavouriteCats(state, getters){
+        console.log(getters.cats.filter(x => state.notDeletedCats.includes(x.name)));
+        console.log(state.favouriteCats);
         return getters.notDeletedCats.filter(x => state.favouriteCats.includes(x.name))
     },
     
