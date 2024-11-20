@@ -9,7 +9,7 @@
     <input type="password" class="input" v-model="password" placeholder="password" />
     <p class="text-danger">{{error}}</p>
 </div>
-<div class="button"> <input type="button" value="Log in" @click="loginUser()" class="login_button text-white m-3"></div>
+<div class="button"> <input type="button" value="Login" @click="loginUser()" class="login_button text-white m-3"></div>
 <div class="button d-flex flex-column align-items-center"><Label>Don't have account? Sign up here</Label> <router-link to="/registration" class="login_button text-white m-3 d-flex align-items-center p-3">Registracija</router-link></div>
         </div>
     </div>  
