@@ -24,12 +24,12 @@ export default {
     return{
       Linkovi:[
         {
-          name:"LOGOVANJE",
-          path:"/login"
-        },
-        {
           name:"HOME",
           path:"/home"
+        },
+        {
+          name:"Log in",
+          path:"/login"
         }
       ],
       ProductMsg:'',
