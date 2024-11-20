@@ -3,7 +3,7 @@
         <div v-if="!user">
             <div class="d-flex flex-column justify-content-between align-items-center login_wrap">
                 <div class="login_naslov w-100">
-                    <h4 class="m-5 ">Uloguj se</h4>
+                    <h4 class="m-5 ">Register</h4>
                 </div>
                 <div>
         <input type="email" class="input" v-model="email" placeholder="Email" />
