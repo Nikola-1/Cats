@@ -5,7 +5,7 @@
           <div :class="user3 ? ' font text-success  m-auto d-flex justify-content-center align-items-center' : 'text-danger font '">{{messg}}</div>
           <div class="product_heading">
             <h2>
-              Top Sale Watches
+              Best Cats
             </h2>
           </div>
           
