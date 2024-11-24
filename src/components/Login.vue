@@ -22,7 +22,7 @@ export default{
     data(){
         return{
             
-                    username:"nikola@gmail.com",
+                    username:"nikola",
                     password:"djura",
                     error:"",
                     user:JSON.parse(localStorage.getItem('user')),
