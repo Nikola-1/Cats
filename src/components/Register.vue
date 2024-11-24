@@ -12,7 +12,7 @@
         <input type="password" class="input" v-model="ConfirmPassword" placeholder="Confirm password" />
     </div>
     <div class="button"> <input type="button" value="Register" @click="registerUser()" class="login_button text-white m-3"></div>
-    
+    <p>{{this.error}}</p>
             </div>
         </div>  
         <div v-else>
