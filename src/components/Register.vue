@@ -57,7 +57,7 @@ import { mapGetters } from 'vuex';
                     this.error += " Invalid mail.";
                 }
                 if(!regPass.test(newPassword)){
-                    this.error += " Invalid password.";
+                    this.error += " Invalid password.At least one special character,one lowercase letter,one uppercase letter, length of 8 characters ";
                 }
                 if(newPassword != newRePassword){
                     this.error += " Passwords don't match."
