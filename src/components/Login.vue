@@ -22,8 +22,8 @@ export default{
     data(){
         return{
             
-                    username:"",
-                    password:"",
+                    username:"nikola@gmail.com",
+                    password:"djura",
                     error:"",
                     user:JSON.parse(localStorage.getItem('user')),
                     
